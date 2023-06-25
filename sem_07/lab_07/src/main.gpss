@@ -1,0 +1,13 @@
+  GENERATE  3,2,0,1000
+MoveSt1  QUEUE  QStorage1      ; 1ый накопитель
+  SEIZE  Operator1      ; Заявка клиента принята оператором
+
+  DEPART  QStorage1      ; Покинуть 1ый накопитель
+
+  ADVANCE  (Exponential(1,0,1/2))    ; Обслуживается заявка оператором по показательному закону распределения
+  RELEASE  Operator1      ; Обработка заявки оператором окончена
+  TRANSFER  0.5,Finish,MoveSt1    ; Перейти по метке Finish с вероятностью 0.9
+
+
+Finish  TERMINATE  1      ; Окончание обработки заявки
+  START 1000        ; Задать число заявок
